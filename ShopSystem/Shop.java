@@ -1,5 +1,5 @@
 
-public interface Markt {
+public interface Shop {
 	
 	public void Admin();
 	public int Stock();

@@ -38,11 +38,17 @@ public abstract class ShopSystem extends Main implements Shop {
 		System.out.print("Enter: ");
 		int adminInput = inputAdmin.nextInt();
 
+		//Mit Switch-Case deutlich weniger aufwand und es kann de Fehler abgefangen werden
+		//Wenn eine falsche Zahl eingegeben wird
 		if (adminInput == 1) {
 			System.out.println("Produktname & Preis");
 
+			//Du erstellt jetzt jeden mal nen neuen Scanner, du kannst einfach den ersten immer wieder neu verwenden
+			//Nenn den dann einfach sc oder so dann ist das auch nicht verwirrd
+			//Un Scenner am besten auch sofort schließen wenn der nicht mehr gebraucht wird
 			Scanner newProdukt = new Scanner(System.in);
 			System.out.print("Produkt: ");
+			//Mit dem wiederverwendeten Scanner sieht das dann so aus: String newName = sc.nextLine();
 			String newName = newProdukt.nextLine();
 			list.produkt.add(list.produkt.size(), newName);
 			System.out.print("Preis: ");
@@ -55,6 +61,8 @@ public abstract class ShopSystem extends Main implements Shop {
 			System.out.println("Index: ");
 			int index = aendern.nextInt();
 			System.out.print("Produktname: ");
+			//Wenn du nur next() angiebst nimmt er glaub nur den ersten Buchstaben 
+			//NextLine() macht dann das Ganze Wort
 			String name = aendern.next();
 			System.out.println("Preis: ");
 			int preis = aendern.nextInt();
@@ -64,8 +72,10 @@ public abstract class ShopSystem extends Main implements Shop {
 			System.out.println("Produkt erfolgreeich bearbeitet");
 			System.out.println("Auswählen: \n\t1: Fortfahren\n\t2: Exit");
 			System.out.println("Enter: ");
+			//Da hast du ja den sc scanner :D den kannst du wenn du ihn oben devisiert ganze Zeit nutzen
 			Scanner sc = new Scanner(System.in);
 			int num = sc.nextInt();
+			//Wieder Switch case aber so is auch ok
 			if (num == 1) {
 				Admin();
 			} else if (num == 2) {
@@ -113,6 +123,7 @@ public abstract class ShopSystem extends Main implements Shop {
 			Scanner kundeInput = new Scanner(System.in);
 			int inputKunde = kundeInput.nextInt();
 
+			//Hier is Switch Case eigenlich besser, is halt übersichtlicher
 			if (inputKunde == 1) {
 				System.out.println("\tEinkaufen: ");
 
@@ -128,12 +139,18 @@ public abstract class ShopSystem extends Main implements Shop {
 				System.out.print("wie viele Produkte möchten Sie einkaufen?: ");
 				int anzahlProdukte = produktKaufen.nextInt();
 
+				//Das erstellt jetzt ein Array wo max 5 Items din gepseichert werden können
+				//Wenn ich das jetzt richtig verstanden hab soll das Array doch anzahlProdukte groß sein 
 				int[] gekauftListe = new int [5];
 
+				//Wenn du dann die Variablen in der Main Klasse auf private machst kannst du aich nicht meht 
+				//auf maxItemLimit zugreifen, dann musst du dehn getter benutzen
 				if (anzahlProdukte <= maxItemLimit) {
 					try {
 						System.out.println("Wählen Sie ein Produkt aus (mit Produktnummer): ");
 						for (int i = 0; i < anzahlProdukte; i++) {
+							//Das versteh ich nicht, das geht ja jetzt das ganze Array duch und für jedes Produkt
+							//Wird ein imput vom User erwaret :D
 							gekauftListe[i] = produktKaufen.nextInt();
 						}
 						ausgewaehlteItems = anzahlProdukte;
@@ -147,10 +164,14 @@ public abstract class ShopSystem extends Main implements Shop {
 							preis.add(list.produktPreise.get(gekauftListe[i]));
 						}
 					} catch (Exception e) {
-
+						//Also erstmal, wir sollen keine Exeption e machen, wir sollen immer den Fehler selber mit angeben
+						//Also z.b. Falscher input von User oder so
+						//Dann versteh ich auch nicht was für ein Fehler generell abgefangen werden soll 
+						//Fühlt sich so an als hättest du das einfach hier reingemacht weil es ne Anforderung von Lehrer ist :D 
 				} finally {
 					System.out.println("_______________________________________________");
 				}
+				//Falsche Einrückung :,( 
 			}else {
 					System.out.println("Nicht mehr als 5 Produkte erlaubt");
 				}
